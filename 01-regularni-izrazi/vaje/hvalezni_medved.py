@@ -1,3 +1,4 @@
+import re
 ###############################################################################
 # Hvaležni medved
 #
@@ -26,6 +27,11 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # {'izdere', 'debel', 'oddide', 'začudeno'}
 ###############################################################################
 
+def find_words(besedilo, niz):
+    n = r'\b\w*' + niz + r'\w*\b'
+    return re.findall(n, besedilo) 
+    
+
 
 ###############################################################################
 # 2) Sestavite funkcijo [find_prefix], ki vrne množico vseh besed, ki se
@@ -35,6 +41,9 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # {'zibala', 'zibel', 'zibelko'}
 ###############################################################################
 
+def find_prefix(besedilo, niz):
+    n = niz + r'\w*\b'
+    return set(re.findall(n, besedilo))
 
 ###############################################################################
 # 3) Sestavite funkcijo [find_suffix], ki vrne množico vseh besed, ki se
@@ -44,6 +53,9 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
 
+def find_suffix(besedilo, niz):
+    n = r'\b\w*' + niz
+    return set(re.findall(n, besedilo)) 
 
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh

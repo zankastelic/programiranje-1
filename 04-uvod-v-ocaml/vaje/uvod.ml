@@ -24,6 +24,11 @@ let rec middle_of_triple triple =
 
 let rec middle_of_triple2 (x,y,z) = y 
 
+(*tle ne vem zakaj je dal zgori kao rekurzivno funkcijo :O; pomoje je isto, 
+ne bi rabu dat, ker je itak ne pokličeš še 1x *)
+
+let middle_of_triple3 (x,y,z) = y
+
 (*----------------------------------------------------------------------------*]
  Funkcija [starting_element] vrne prvi element danega seznama. V primeru
  prekratkega seznama vrne napako.
@@ -68,6 +73,10 @@ let rec multiply list =
 let rec sum_int_pairs  = function
   | [] -> []
   | (x1, x2) :: xs -> (x1 + x2) :: (sum_int_pairs xs)
+
+(* cist na koncu bo seznam prazen in to bo vrnu prazen seznam; temu praznemu
+seznamu se bodo dodala števila parov, ki smo jih sešteli*)
+
 (*----------------------------------------------------------------------------*]
  Funkcija [get k list] poišče [k]-ti element v seznamu [list]. Številčenje
  elementov seznama (kot ponavadi) pričnemo z 0. Če je k negativen, funkcija
@@ -84,12 +93,12 @@ let rec get k list =
 
 let rec get1 k = function
   | [] -> failwith "Couldn-t find element, list too short"
-  | x :: xs -> if k <= 0 then x else get (k-1) xs
+  | x :: xs -> if k <= 0 then x else get1 (k-1) xs
 
 let rec get2 k = function
   | [] -> failwith "Couldn-t find element, list too short"
   | x :: xs when k <= 0 -> x
-  | x :: xs -> get (k-1) xs
+  | x :: xs -> get2 (k-1) xs
 
 
 (*----------------------------------------------------------------------------*]
@@ -102,7 +111,13 @@ let rec get2 k = function
 let rec double = function
   | [] -> []
   | x :: xs -> x :: x :: double xs
-  (* | x :: xs -> [x; x] @ double xs *)
+
+let rec double1 xs =
+  match xs with 
+  | [] -> [] 
+  | x :: xs' -> [x;x] @ double1 xs'
+
+(*isto funkcijo morš poklicat *)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [insert x k list] na [k]-to mesto seznama [list] vrine element [x].
@@ -118,6 +133,8 @@ let rec insert x k list =
   match list with
   | [] -> failwith "Napaka."
   | y :: ys -> if k <= 0 then x :: y :: ys else y :: insert x (k-1) ys
+
+(*štekam sam ne bi znal sam*)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [divide k list] seznam razdeli na dva seznama. Prvi vsebuje prvih [k]
@@ -136,6 +153,9 @@ let rec divide k = function
   | x :: xs (* k > 0*) -> 
       let left, right = divide (k-1) xs in 
       (x :: left, right)
+
+(*ne vem glih kaj sta tedva left, pa right; kaj delata*)
+
 (*----------------------------------------------------------------------------*]
  Funkcija [rotate n list] seznam zavrti za [n] mest v levo. Predpostavimo, da
  je [n] v mejah seznama.
@@ -148,6 +168,9 @@ let rec rotate n  = function
   | [] -> [] 
   | x :: xs -> if n = 0 then x :: xs else rotate(n-1) (xs @ [x])
 
+(*ta x, k je spredi, k je prvi element ga prpopamo zadi -> lepimo z @; nato še
+enkrat pokličemo to funkcijo, ki ponavlja to*)
+
 
 (*----------------------------------------------------------------------------*]
  Funkcija [remove x list] iz seznama izbriše vse pojavitve elementa [x].
@@ -156,7 +179,13 @@ let rec rotate n  = function
  - : int list = [2; 3; 2; 3]
 [*----------------------------------------------------------------------------*)
 
-let rec remove k = ()
+(* sicer ne dela, sm sam sprobu, ampak je neki podobnga
+let rec remove x list = 
+  match list with
+  | [] -> []
+  | y :: ys -> if x == y then remove x ys else y :: remove x ys
+
+*) 
 
 (*----------------------------------------------------------------------------*]
  Funkcija [is_palindrome] za dani seznam ugotovi ali predstavlja palindrom.
@@ -168,7 +197,16 @@ let rec remove k = ()
  - : bool = false
 [*----------------------------------------------------------------------------*)
 
-let rec is_palindrome = ()
+(*sam naredu, pa pač ne dela*)
+
+let rec obrni list = 
+  match list with
+  | [] -> [] 
+  | x :: xs -> obrni xs @ [x]
+
+
+let is_palindrome list = list == obrni list 
+
 
 (*----------------------------------------------------------------------------*]
  Funkcija [max_on_components] sprejme dva seznama in vrne nov seznam, katerega

@@ -207,10 +207,12 @@ let professor = {name = "Matija"; status = Employed(Fire, Teacher)}
 
 type counter = {fire : int; frost : int; arcane : int }
 
-let update counter = function
+(*let update counter = function
   |Fire -> ˙{counter with fire = counter.fire +1}
   |Frost -> ˙{counter with frost = counter.frost +1}
   |Arcane -> ˙{counter with arcane = counter.arcane +1}
+
+  *)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [count_magic] sprejme seznam čarodejev in vrne števec uporabnikov
@@ -220,6 +222,7 @@ let update counter = function
  - : magic_counter = {fire = 3; frost = 0; arcane = 0}
 [*----------------------------------------------------------------------------*)
 
+(*
 let rec count_magic ws =
   let rec magic_counter = function 
   | [] -> counter
@@ -231,7 +234,7 @@ let rec count_magic ws =
         magic_counter counter' wz)
   in
   magic_counter (fire = 0; frost = 0; arcane = 0)ws 
-
+*)
 
 
 (*----------------------------------------------------------------------------*]

@@ -217,7 +217,10 @@ let is_palindrome list = list == obrni list
  - : int list = [5; 4; 3; 3; 4]
 [*----------------------------------------------------------------------------*)
 
-let rec max_on_components = ()
+let rec max_on_components list1 list2 =
+  match (list1, list2) with
+  | (x :: xs, y :: ys) -> max x y :: max_on_components xs ys
+  | _ -> []
 
 (*----------------------------------------------------------------------------*]
  Funkcija [second_largest] vrne drugo največjo vrednost v seznamu. Pri tem se
@@ -229,4 +232,12 @@ let rec max_on_components = ()
  - : int = 10
 [*----------------------------------------------------------------------------*)
 
-let rec second_largest = ()
+(*
+let rec second_largest list =
+  let rec largest = function
+    | [] -> failwith "List is too short."
+	    | x :: [] -> x
+	    | x :: xs -> max x (largest xs)
+  in
+  largest (delete (largest list) list)
+*)

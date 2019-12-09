@@ -66,6 +66,6 @@ let rec zmnozi xs =
  (*# double [1; 2; 3];;
  - : int list = [1; 1; 2; 2; 3; 3]*)
 
- let rec podvoji seznam = 
-    | [] -> [] 
-    | 
+
+
+let is_root n k = if n*n == k then true else false 
